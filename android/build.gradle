@@ -127,4 +127,11 @@ dependencies {
   // noinspection GradleDynamicVersion
   api 'com.facebook.react:react-native:+'
   implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+
+  implementation "com.google.android.gms:play-services-nearby:18.0.0"
+  implementation "com.goterl:lazysodium-android:5.0.2@aar"
+  implementation "net.java.dev.jna:jna:5.8.0@aar"
+
+  // TODO: sonatype maven
+  implementation files('libs/idpass-smartshare.aar')
 }
