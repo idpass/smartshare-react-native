@@ -2,6 +2,21 @@
 
 A Secure Communications Library For Sharing Credentials
 
+## Steps to test run the minimal example app
+
+```sh
+git clone https://github.com/idpass/react-native-idpass-smartshare
+cd react-native-idpass-smartshare/
+npm install
+cd example/
+npm install
+npx react-native start
+
+# open another terminal
+cd react-native-idpass-smartshare/example
+npx react-native run-android
+```
+
 ## Installation
 
 ```sh
