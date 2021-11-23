@@ -60,6 +60,8 @@ class App extends React.Component {
     this.Disconnect = this.Disconnect.bind(this)
     this.onScan = this.onScan.bind(this)
     this.Send = this.Send.bind(this)
+    this.Discover = this.Discover.bind(this)
+    this.Advertise = this.Advertise.bind(this)
     
     this.state = {
       page: 0,
@@ -71,7 +73,10 @@ class App extends React.Component {
       qrButtonDisabled: false,
       scanButtonDisabled: false,
       disconButtonDisabled: true,
-      sendButtonDisabled: true
+      sendButtonDisabled: true,
+      discoverButtonDisabled: false,
+      advertiseButtonDisabled: false,
+      searchmsg: ""
     }
 
   } 
@@ -96,12 +101,19 @@ class App extends React.Component {
           qrButtonDisabled: false,
           scanButtonDisabled: false,
           disconButtonDisabled: true,
-          sendButtonDisabled: true
+          sendButtonDisabled: true,
+          advertiseButtonDisabled: false,
+          discoverButtonDisabled: false,
+          searchmsg: ""
         });
         break;
 
         case "transferupdate":
         console.log("transferupdate:" + event.data)
+        break;
+
+        case "onEndpointFound":
+        console.log("found " + event.data)
         break;
 
         default:
@@ -201,7 +213,10 @@ class App extends React.Component {
       qrButtonDisabled: false,
       scanButtonDisabled: false,
       disconButtonDisabled: true,
-      sendButtonDisabled: true
+      sendButtonDisabled: true,
+      searchmsg: "",
+      advertiseButtonDisabled: false,
+      discoverButtonDisabled: false
     })
   }
 
@@ -218,6 +233,44 @@ class App extends React.Component {
       this.setState({
         checksum: MD5(msg),
         msg: msg
+      })
+    })
+  }
+
+  Discover() {
+    var params = BluetoothApi.getConnectionParametersDebug()
+    BluetoothApi.setConnectionParameters(params)
+
+    this.setState({
+      advertiseButtonDisabled: true,
+      discoverButtonDisabled: true,
+      searchmsg: "Searching ..."
+    })
+
+    BluetoothApi.createConnection("discoverer", () => {
+      console.log("-- connected ---")
+      this.setState({
+        page: 0,
+        searchmsg: "i see you"
+      })
+    })
+  }
+
+  Advertise() {
+    var params = BluetoothApi.getConnectionParametersDebug()
+    BluetoothApi.setConnectionParameters(params)
+
+    this.setState({
+      advertiseButtonDisabled: true,
+      discoverButtonDisabled: true,
+      searchmsg: "Waiting to be found ..."
+    })
+
+    BluetoothApi.createConnection("advertiser", () => {
+      console.log("-- connected ---")
+      this.setState({
+        page: 0,
+        searchmsg: "you see me!"
       })
     })
   }
@@ -240,6 +293,16 @@ class App extends React.Component {
               </Section>
               <Section title="connection code">
               <QRCode size={200} color={this.state.color} value={JSON.stringify(this.state.params)} />
+              </Section>
+              <Section title="visibility check">
+                <Button title="discover" disabled={this.state.discoverButtonDisabled} onPress={this.Discover} />
+                <View style={styles.space} />
+                <Button title="advertise" disabled={this.state.advertiseButtonDisabled} onPress={this.Advertise} />
+                <View style={styles.space} />
+                <Button title="DISCON" onPress={this.Disconnect} />
+              </Section>
+              <Section title="visibility result">
+                <Text>{this.state.searchmsg}</Text>
               </Section>
               <Section title="checksum">
                 <Text>{this.state.checksum}</Text>
