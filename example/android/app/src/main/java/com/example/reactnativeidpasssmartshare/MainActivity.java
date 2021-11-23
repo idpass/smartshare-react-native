@@ -26,6 +26,7 @@ public class MainActivity extends ReactActivity {
                     Manifest.permission.BLUETOOTH_ADMIN,
                     Manifest.permission.ACCESS_WIFI_STATE,
                     Manifest.permission.CHANGE_WIFI_STATE,
+                    Manifest.permission.CHANGE_WIFI_MULTICAST_STATE,
                     Manifest.permission.ACCESS_COARSE_LOCATION,
                     Manifest.permission.ACCESS_FINE_LOCATION,
             };
@@ -51,6 +52,18 @@ public class MainActivity extends ReactActivity {
           this.requestPermissions(REQUIRED_PERMISSIONS, REQUEST_CODE_REQUIRED_PERMISSIONS);
         }
       }
+
+      // TODO Commenting this only for now if permission is not working for other Android 11 manifacturer/devices 
+      // if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+      //  WifiManager wifi = (WifiManager)getSystemService( Context.WIFI_SERVICE );
+      //  if (wifi != null){
+      //    WifiManager.MulticastLock lock = wifi.createMulticastLock("IdpassSmartshareExample");
+      //    lock.acquire();
+      //  }
+      // }
+      // Must add this to onDestroy/onStop or disconnect to save battery 
+      // lock.release();  
+      
     }
 
     /**
