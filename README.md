@@ -117,7 +117,7 @@ BluetoothApi.handleLogEvents((event) => {
 })
 ```
 
-## Non-dual Bluetooth Communication Mode
+## Non-dual Bluetooth Connection Creation Mode
 
 The above example snippets illustrated the use of the **dual** Bluetooth connection creation mode, wherein both devices will actively attempt to connect to each other and depending on who does it first, a connection is thereby created. The **dual** mode is a more robust mechanism to create a connection. However, an application may opt to configure one device as the `advertiser` and the other as the `discoverer`. For example, the first app that displays the QR code will advertise its presence and waits for a connection by:
 
