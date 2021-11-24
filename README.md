@@ -117,6 +117,26 @@ BluetoothApi.handleLogEvents((event) => {
 })
 ```
 
+## Non-dual Bluetooth Communication Mode
+
+The above example snippets illustrated the use of the **dual** Bluetooth connection creation mode, wherein both devices will actively attempt to connect to each other and depending on who does it first, a connection is thereby created. The **dual** mode is a more robust mechanism to create a connection. However, an application may opt to configure one device as the `advertiser` and the other as the `discoverer`. For example, the first app that displays the QR code will advertise its presence and waits for a connection by:
+
+```javascript
+BluetoothApi.createConnection("advertiser", () => {
+  // A secure Bluetooth connection is created
+  // Anytime, either app may call BluetoothApi.send()
+})
+```
+
+and the other app that scans the QR code will attempt to discover the first app by:
+
+```javascript
+BluetoothApi.createConnection("discoverer", () => {
+  // A secure Bluetooth connection is created
+  // Anytime, either app may call BluetoothApi.send()
+})
+```
+
 This secure Bluetooth communication library needs to be used with another mechanism, for example a QR code, for the exchange of a connection parameters (params). This library uses asymmetric cryptography with ephemeral keys to secure the payload with [Authenticated Encryption](https://en.wikipedia.org/wiki/Authenticated_encryption).
 
 ## Open source dependencies
