@@ -26,22 +26,9 @@ public class MainActivity extends ReactActivity {
                     Manifest.permission.BLUETOOTH_ADMIN,
                     Manifest.permission.ACCESS_WIFI_STATE,
                     Manifest.permission.CHANGE_WIFI_STATE,
-                    Manifest.permission.READ_EXTERNAL_STORAGE,
-                    Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                    Manifest.permission.CHANGE_WIFI_MULTICAST_STATE,
                     Manifest.permission.ACCESS_COARSE_LOCATION,
                     Manifest.permission.ACCESS_FINE_LOCATION,
-            };
-    private static final String[] REQUIRED_PERMISSIONS_Q =
-            new String[]{
-                    Manifest.permission.BLUETOOTH,
-                    Manifest.permission.BLUETOOTH_ADMIN,
-                    Manifest.permission.ACCESS_WIFI_STATE,
-                    Manifest.permission.CHANGE_WIFI_STATE,
-                    Manifest.permission.READ_EXTERNAL_STORAGE,
-                    Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                    Manifest.permission.ACCESS_COARSE_LOCATION,
-                    Manifest.permission.ACCESS_FINE_LOCATION,
-                    Manifest.permission.ACCESS_BACKGROUND_LOCATION
             };
 
     private static final int REQUEST_CODE_REQUIRED_PERMISSIONS = 1;
@@ -60,15 +47,23 @@ public class MainActivity extends ReactActivity {
     protected void onStart() {
         super.onStart();
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            if (!hasPermissions(this, REQUIRED_PERMISSIONS_Q)) {
-                requestPermissions(REQUIRED_PERMISSIONS_Q, REQUEST_CODE_REQUIRED_PERMISSIONS);
-            }
-        } else {
-            if (!hasPermissions(this, REQUIRED_PERMISSIONS)) {
-                requestPermissions(REQUIRED_PERMISSIONS, REQUEST_CODE_REQUIRED_PERMISSIONS);
-            }
+      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+        if (!hasPermissions(this, REQUIRED_PERMISSIONS)) {
+          this.requestPermissions(REQUIRED_PERMISSIONS, REQUEST_CODE_REQUIRED_PERMISSIONS);
         }
+      }
+
+      // TODO Commenting this only for now if permission is not working for other Android 11 manifacturer/devices 
+      // if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+      //  WifiManager wifi = (WifiManager)getSystemService( Context.WIFI_SERVICE );
+      //  if (wifi != null){
+      //    WifiManager.MulticastLock lock = wifi.createMulticastLock("IdpassSmartshareExample");
+      //    lock.acquire();
+      //  }
+      // }
+      // Must add this to onDestroy/onStop or disconnect to save battery 
+      // lock.release();  
+      
     }
 
     /**
