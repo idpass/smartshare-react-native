@@ -14,9 +14,10 @@ import androidx.annotation.RequiresApi;
 import androidx.core.content.ContextCompat;
 
 /**
- * IMPORTANT NOTE: The Android permission flow here only works
- * for Android 10 and below, and does not work in Android 11,
- * which is still under investigation.
+ * IMPORTANT NOTE: The Android permission flow here works
+ * for Android 10 and below, and Android 11,
+ * and under continuous investigation if other manufacturers
+ * fails to work, etc.
  */
 public class MainActivity extends ReactActivity {
 
