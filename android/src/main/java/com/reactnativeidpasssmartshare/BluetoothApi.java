@@ -125,7 +125,7 @@ public class BluetoothApi extends ReactContextBaseJavaModule {
         });
     }
 
-    @ReactMethod
+    @ReactMethod(isBlockingSynchronousMethod = true)
     public void destroyConnection() {
         bluetoothSecure.destroyConnection();
     }
