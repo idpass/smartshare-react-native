@@ -29,7 +29,7 @@ import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.modules.core.DeviceEventManagerModule;
 import com.facebook.react.bridge.Callback;
 
-import org.idpass.smartshare.bluetooth.BluetoothSecure;
+import org.idpass.smartshare.connection.BluetoothSecure;
 import org.json.JSONException;
 import org.json.JSONObject;
 
