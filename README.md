@@ -143,3 +143,7 @@ This secure Bluetooth communication library needs to be used with another mechan
 
 - [idpass-smartshare](https://github.com/idpass/idpass-smartshare)
 - [lazysodium-android](https://github.com/terl/lazysodium-android)
+
+## License
+
+[Apache-2.0 License](LICENSE)
