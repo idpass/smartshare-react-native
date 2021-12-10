@@ -177,6 +177,10 @@ android {
 
         }
     }
+
+    lintOptions {
+        lintConfig rootProject.file('lint.xml')
+    }
 }
 
 dependencies {
