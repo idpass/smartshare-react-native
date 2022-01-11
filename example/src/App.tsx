@@ -36,7 +36,7 @@ import {
 } from 'react-native/Libraries/NewAppScreen';
 
 import QRCode from 'react-native-qrcode-svg';
-import {MD5, isQRValid, getRandomSentence} from './Helper';
+import {MD5, isQRValid, getRandomSentence, getRandomString} from './Helper';
 import QRCodeScanner from 'react-native-qrcode-scanner';
 import { RNCamera } from 'react-native-camera';
 import BluetoothApi from 'react-native-idpass-smartshare';
@@ -102,8 +102,9 @@ class App extends React.Component {
         console.log(event.type)
         switch (event.type) {
         case "msg":
+        var alphaOmega = event.data.substr(0, 20) + event.data.substr(event.data.length - 20);
         this.setState({
-          msg: event.data,
+          msg: alphaOmega,
           checksum: MD5(event.data)
         });
         break;
@@ -126,6 +127,10 @@ class App extends React.Component {
 
         case "transferupdate":
         console.log("transferupdate:" + event.data)
+        this.setState({
+          checksum: event.data,
+          sendButtonDisabled: event.data < 1.0 ? true:false
+        });
         break;
 
         case "onEndpointFound":
@@ -237,18 +242,21 @@ class App extends React.Component {
   }
 
   Send() {
-    let msg = getRandomSentence(42);
+    let msg = "alpha 9MB payload " + getRandomString(9000000) + " omega";
+    var alphaOmega = msg.substr(0, 20) + msg.substr(msg.length - 20);
 
     this.setState({
       msg: "",
-      checksum: ""
+      checksum: "",
+      sendButtonDisabled: true
     });
 
     BluetoothApi.send(msg, () => {
       console.log("*** sent ***")
       this.setState({
         checksum: MD5(msg),
-        msg: msg
+        msg: alphaOmega,
+        sendButtonDisabled: false
       })
     })
   }
