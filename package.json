@@ -1,6 +1,6 @@
 {
-  "name": "react-native-idpass-smartshare",
-  "version": "0.1.0",
+  "name": "@idpass/react-native-idpass-smartshare",
+  "version": "0.2.0",
   "description": "A Secure Communications Library For Sharing Credentials",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
@@ -43,7 +43,7 @@
   },
   "homepage": "https://github.com/idpass/react-native-idpass-smartshare#readme",
   "publishConfig": {
-    "registry": "https://registry.npmjs.org/"
+    "access": "public"
   },
   "devDependencies": {
     "@commitlint/config-conventional": "^11.0.0",
