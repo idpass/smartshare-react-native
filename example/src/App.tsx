@@ -39,7 +39,7 @@ import QRCode from 'react-native-qrcode-svg';
 import {MD5, isQRValid, getRandomSentence, getRandomString} from './Helper';
 import QRCodeScanner from 'react-native-qrcode-scanner';
 import { RNCamera } from 'react-native-camera';
-import BluetoothApi from 'react-native-idpass-smartshare';
+import BluetoothApi from '@idpass/react-native-idpass-smartshare';
 
 const Section = ({children, title}): Node => {
   const isDarkMode = false;
