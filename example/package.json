@@ -1,6 +1,6 @@
 {
-  "name": "react-native-idpass-smartshare-example",
-  "description": "Example app for react-native-idpass-smartshare",
+  "name": "smartshare-react-native-example",
+  "description": "Example app for @idpass/smartshare-react-native",
   "version": "0.0.1",
   "private": true,
   "scripts": {
