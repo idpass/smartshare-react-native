@@ -1,5 +1,5 @@
 {
-  "name": "@idpass/react-native-idpass-smartshare",
+  "name": "@idpass/smartshare-react-native",
   "version": "0.2.0",
   "description": "A Secure Communications Library For Sharing Credentials",
   "main": "lib/commonjs/index",
@@ -13,7 +13,7 @@
     "android",
     "ios",
     "cpp",
-    "react-native-idpass-smartshare.podspec",
+    "smartshare-react-native.podspec",
     "!lib/typescript/example",
     "!android/build",
     "!ios/build",
@@ -35,13 +35,13 @@
     "react-native",
     "android"
   ],
-  "repository": "https://github.com/idpass/react-native-idpass-smartshare",
+  "repository": "https://github.com/idpass/smartshare-react-native",
   "author": "dexter <dexter@newlogic.com> (https://github.com/idpass)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/idpass/react-native-idpass-smartshare/issues"
+    "url": "https://github.com/idpass/smartshare-react-native/issues"
   },
-  "homepage": "https://github.com/idpass/react-native-idpass-smartshare#readme",
+  "homepage": "https://github.com/idpass/smartshare-react-native#readme",
   "publishConfig": {
     "access": "public"
   },

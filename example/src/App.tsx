@@ -15,8 +15,8 @@
  */
 
 /**
- * An example minimal React Native test application that uses 
- * the 'react-native-idpass-smartshare' library in conjunction 
+ * An example minimal React Native test application that uses
+ * the '@idpass/smartshare-react-native' library in conjunction
  * with third-party QR code libraries.
  */
 
@@ -39,7 +39,7 @@ import QRCode from 'react-native-qrcode-svg';
 import {MD5, isQRValid, getRandomSentence, getRandomString} from './Helper';
 import QRCodeScanner from 'react-native-qrcode-scanner';
 import { RNCamera } from 'react-native-camera';
-import BluetoothApi from 'react-native-idpass-smartshare';
+import BluetoothApi from '@idpass/smartshare-react-native';
 
 const Section = ({children, title}): Node => {
   const isDarkMode = false;
@@ -78,7 +78,7 @@ class App extends React.Component {
     this.Send = this.Send.bind(this)
     this.Discover = this.Discover.bind(this)
     this.Advertise = this.Advertise.bind(this)
-    
+
     this.state = {
       page: 0,
       msg: "",
@@ -95,7 +95,7 @@ class App extends React.Component {
       searchmsg: ""
     }
 
-  } 
+  }
 
   componentDidMount() {
     this.nearbyEvents = BluetoothApi.handleNearbyEvents((event) => {
@@ -142,7 +142,7 @@ class App extends React.Component {
       }
 
     })
-    
+
     this.LogEvents = BluetoothApi.handleLogEvents((event) => {
       var logmsg = (this.state.logmsg ? this.state.logmsg : "") + "\n" + event.log
       this.setState({
@@ -207,7 +207,7 @@ class App extends React.Component {
         scanButtonDisabled: false
       })
       return
-    } 
+    }
 
     BluetoothApi.setConnectionParameters(qr.data)
     BluetoothApi.createConnection("dual", () => {
