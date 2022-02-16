@@ -44,6 +44,7 @@
   },
   "homepage": "https://github.com/idpass/smartshare-react-native#readme",
   "publishConfig": {
+    "registry": "https://registry.npmjs.org/",
     "access": "public"
   },
   "devDependencies": {
