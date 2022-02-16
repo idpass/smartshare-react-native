@@ -39,18 +39,18 @@ interface HandlerFunc {
 
 const eventEmitter = new NativeEventEmitter();
 
-BluetoothApi.handleNearbyEvents = (callback :HandlerFunc) => {
+BluetoothApi.handleNearbyEvents = (callback: HandlerFunc) => {
   var eventObj = eventEmitter.addListener('EVENT_NEARBY', (event) => {
-    callback(event)
-  })
-  return eventObj
-}
+    callback(event);
+  });
+  return eventObj;
+};
 
-BluetoothApi.handleLogEvents = (callback :HandlerFunc) => {
+BluetoothApi.handleLogEvents = (callback: HandlerFunc) => {
   var eventObj = eventEmitter.addListener('EVENT_LOG', (event) => {
-    callback(event)
-  })
-  return eventObj
-}
+    callback(event);
+  });
+  return eventObj;
+};
 
 export default BluetoothApi;
