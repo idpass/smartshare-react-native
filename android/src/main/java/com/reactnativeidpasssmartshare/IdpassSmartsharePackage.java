@@ -1,4 +1,4 @@
-package com.reactnativesmartsharemodule;
+package com.reactnativeidpasssmartshare;
 
 import androidx.annotation.NonNull;
 
