@@ -22,8 +22,8 @@ const LINKING_ERROR =
   '- You rebuilt the app after installing the package\n' +
   '- You are not using Expo managed workflow\n';
 
-const BluetoothApi = NativeModules.BluetoothApi
-  ? NativeModules.BluetoothApi
+const IdpassSmartshare = NativeModules.IdpassSmartshare
+  ? NativeModules.IdpassSmartshare
   : new Proxy(
       {},
       {
@@ -39,18 +39,18 @@ interface HandlerFunc {
 
 const eventEmitter = new NativeEventEmitter();
 
-BluetoothApi.handleNearbyEvents = (callback: HandlerFunc) => {
+IdpassSmartshare.handleNearbyEvents = (callback: HandlerFunc) => {
   var eventObj = eventEmitter.addListener('EVENT_NEARBY', (event) => {
     callback(event);
   });
   return eventObj;
 };
 
-BluetoothApi.handleLogEvents = (callback: HandlerFunc) => {
+IdpassSmartshare.handleLogEvents = (callback: HandlerFunc) => {
   var eventObj = eventEmitter.addListener('EVENT_LOG', (event) => {
     callback(event);
   });
   return eventObj;
 };
 
-export default BluetoothApi;
+export default IdpassSmartshare;

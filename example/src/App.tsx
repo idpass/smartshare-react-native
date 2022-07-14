@@ -36,7 +36,7 @@ import { Colors } from 'react-native/Libraries/NewAppScreen';
 import QRCode from 'react-native-qrcode-svg';
 import { MD5, isQRValid, getRandomString } from './Helper';
 import QRCodeScanner from 'react-native-qrcode-scanner';
-import BluetoothApi from '@idpass/smartshare-react-native';
+import IdpassSmartshare from '@idpass/smartshare-react-native';
 
 const Section = ({ children, title }): Node => {
   const isDarkMode = false;
@@ -95,7 +95,7 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    this.nearbyEvents = BluetoothApi.handleNearbyEvents((event) => {
+    this.nearbyEvents = IdpassSmartshare.handleNearbyEvents((event) => {
       console.log(event.type);
       switch (event.type) {
         case 'msg':
@@ -141,7 +141,7 @@ class App extends React.Component {
       }
     });
 
-    this.LogEvents = BluetoothApi.handleLogEvents((event) => {
+    this.LogEvents = IdpassSmartshare.handleLogEvents((event) => {
       var logmsg =
         (this.state.logmsg ? this.state.logmsg : '') + '\n' + event.log;
       this.setState({
@@ -161,7 +161,7 @@ class App extends React.Component {
   }
 
   GetConnectionParameters() {
-    var params = JSON.parse(BluetoothApi.getConnectionParameters());
+    var params = JSON.parse(IdpassSmartshare.getConnectionParameters());
     this.setState({
       qrButtonDisabled: true,
       scanButtonDisabled: true,
@@ -174,7 +174,7 @@ class App extends React.Component {
       },
     });
 
-    BluetoothApi.createConnection('dual', () => {
+    IdpassSmartshare.createConnection('dual', () => {
       console.log('-- connected ---');
       this.setState({
         page: 0,
@@ -208,8 +208,8 @@ class App extends React.Component {
       return;
     }
 
-    BluetoothApi.setConnectionParameters(qr.data);
-    BluetoothApi.createConnection('dual', () => {
+    IdpassSmartshare.setConnectionParameters(qr.data);
+    IdpassSmartshare.createConnection('dual', () => {
       console.log('-- connected ---');
       this.setState({
         page: 0,
@@ -227,7 +227,7 @@ class App extends React.Component {
 
   Disconnect() {
     console.log('*** Disconnect ***');
-    BluetoothApi.destroyConnection();
+    IdpassSmartshare.destroyConnection();
 
     this.setState({
       qrButtonDisabled: false,
@@ -250,7 +250,7 @@ class App extends React.Component {
       sendButtonDisabled: true,
     });
 
-    BluetoothApi.send(msg, () => {
+    IdpassSmartshare.send(msg, () => {
       console.log('*** sent ***');
       this.setState({
         checksum: MD5(msg),
@@ -261,8 +261,8 @@ class App extends React.Component {
   }
 
   Discover() {
-    var params = BluetoothApi.getConnectionParametersDebug();
-    BluetoothApi.setConnectionParameters(params);
+    var params = IdpassSmartshare.getConnectionParametersDebug();
+    IdpassSmartshare.setConnectionParameters(params);
 
     this.setState({
       advertiseButtonDisabled: true,
@@ -270,7 +270,7 @@ class App extends React.Component {
       searchmsg: 'Searching ...',
     });
 
-    BluetoothApi.createConnection('discoverer', () => {
+    IdpassSmartshare.createConnection('discoverer', () => {
       console.log('-- connected ---');
       this.setState({
         page: 0,
@@ -280,8 +280,8 @@ class App extends React.Component {
   }
 
   Advertise() {
-    var params = BluetoothApi.getConnectionParametersDebug();
-    BluetoothApi.setConnectionParameters(params);
+    var params = IdpassSmartshare.getConnectionParametersDebug();
+    IdpassSmartshare.setConnectionParameters(params);
 
     this.setState({
       advertiseButtonDisabled: true,
@@ -289,7 +289,7 @@ class App extends React.Component {
       searchmsg: 'Waiting to be found ...',
     });
 
-    BluetoothApi.createConnection('advertiser', () => {
+    IdpassSmartshare.createConnection('advertiser', () => {
       console.log('-- connected ---');
       this.setState({
         page: 0,

@@ -17,7 +17,7 @@ yarn add @idpass/smartshare-react-native
 Import in main app:
 
 ```javascript
-import BluetoothApi from '@idpass/smartshare-react-native';
+import IdpassSmartshare from '@idpass/smartshare-react-native';
 ```
 
 ## Development
@@ -42,9 +42,9 @@ First, a connection code or `params` needs to be communicated out-of-band and no
 The app that _displays the QR code_ shall generate the ephemeral connection parameters:
 
 ```javascript
-import BluetoothApi from '@idpass/smartshare-react-native';
+import IdpassSmartshare from '@idpass/smartshare-react-native';
 
-const params = BluetoothApi.getConnectionParameters();
+const params = IdpassSmartshare.getConnectionParameters();
 console.log(params);
 
 // Use any out-of-band mechanism to communicate the value of params to the peer device.
@@ -66,22 +66,22 @@ The app that _scans the QR code_ shall set its connection parameters:
 // Use any out-of-band mechanism to get the value of params from the peer device.
 // For example, you can use a QR code scanning library to get params.
 
-BluetoothApi.setConnectionParameters(params);
+IdpassSmartshare.setConnectionParameters(params);
 ```
 
 Both apps create the connection:
 
 ```javascript
-BluetoothApi.createConnection('dual', () => {
+IdpassSmartshare.createConnection('dual', () => {
   // A secure Bluetooth connection is created
-  // Anytime, either app may call BluetoothApi.send()
+  // Anytime, either app may call IdpassSmartshare.send()
 });
 ```
 
 Once the connection is created, either app can send a string message.
 
 ```javascript
-BluetoothApi.send(message, () => {
+IdpassSmartshare.send(message, () => {
   // message sent
 });
 ```
@@ -89,13 +89,13 @@ BluetoothApi.send(message, () => {
 The app can intentionally destroy the connection.
 
 ```javascript
-BluetoothApi.destroyConnection();
+IdpassSmartshare.destroyConnection();
 ```
 
 The app must handle _Nearby_ events in order to receive **messages**, to monitor transfer **status** of incoming/outgoing messages, or to monitor connection related **events**:
 
 ```javascript
-BluetoothApi.handleNearbyEvents((event) => {
+IdpassSmartshare.handleNearbyEvents((event) => {
   switch (event.type) {
     case 'msg':
       console.log(event.data);
@@ -118,7 +118,7 @@ BluetoothApi.handleNearbyEvents((event) => {
 The React Native app can print native debug **logs** for debugging, by:
 
 ```javascript
-BluetoothApi.handleLogEvents(event => {
+IdpassSmartshare.handleLogEvents(event => {
   console.log(event.log);
 });
 ```
@@ -128,18 +128,18 @@ BluetoothApi.handleLogEvents(event => {
 The above example snippets illustrated the use of the **dual** Bluetooth connection creation mode, wherein both devices will actively attempt to connect to each other and depending on who does it first, a connection is thereby created. The **dual** mode is a more robust mechanism to create a connection. However, an application may opt to configure one device as the `advertiser` and the other as the `discoverer`. For example, the first app that displays the QR code will advertise its presence and waits for a connection by:
 
 ```javascript
-BluetoothApi.createConnection('advertiser', () => {
+IdpassSmartshare.createConnection('advertiser', () => {
   // A secure Bluetooth connection is created
-  // Anytime, either app may call BluetoothApi.send()
+  // Anytime, either app may call IdpassSmartshare.send()
 });
 ```
 
 and the other app that scans the QR code will attempt to discover the first app by:
 
 ```javascript
-BluetoothApi.createConnection('discoverer', () => {
+IdpassSmartshare.createConnection('discoverer', () => {
   // A secure Bluetooth connection is created
-  // Anytime, either app may call BluetoothApi.send()
+  // Anytime, either app may call IdpassSmartshare.send()
 });
 ```
 
