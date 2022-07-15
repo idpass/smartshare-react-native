@@ -309,7 +309,7 @@ PODS:
     - React-Core
   - RNSVG (12.1.1):
     - React
-  - smartshare-react-native (0.2.4):
+  - smartshare-react-native (0.2.3):
     - React-Core
   - Yoga (1.14.0)
   - YogaKit (1.18.1):
@@ -489,7 +489,7 @@ SPEC CHECKSUMS:
   ReactCommon: 73d79c7039f473b76db6ff7c6b159c478acbbb3b
   RNPermissions: f7ebe52db07c00901127966ca080b4ec6a6ceb0a
   RNSVG: 551acb6562324b1d52a4e0758f7ca0ec234e278f
-  smartshare-react-native: 8e3a76e160b94c2715cc9a574d3d4237811a6b0f
+  smartshare-react-native: 357a0cc916b17e6ff4177014d73a39393dd96fc1
   Yoga: 4bd86afe9883422a7c4028c00e34790f560923d6
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 

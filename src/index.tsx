@@ -33,6 +33,8 @@ const IdpassSmartshare = NativeModules.IdpassSmartshare
       }
     );
 
+IdpassSmartshare.noop; // to trigger iOS autolink
+
 interface HandlerFunc {
   (message: string): void;
 }
