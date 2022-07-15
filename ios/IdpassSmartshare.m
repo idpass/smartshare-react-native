@@ -1,19 +1,15 @@
 #import "IdpassSmartshare.h"
 
 @implementation IdpassSmartshare
+RCT_EXPORT_MODULE();
 
-RCT_EXPORT_MODULE()
-
-// Example method
-// See // https://reactnative.dev/docs/native-modules-ios
-RCT_REMAP_METHOD(multiply,
-                 multiplyWithA:(nonnull NSNumber*)a withB:(nonnull NSNumber*)b
+RCT_REMAP_METHOD(noop,
+                 multiplyWithA:(double)a withB:(double)b
                  withResolver:(RCTPromiseResolveBlock)resolve
                  withRejecter:(RCTPromiseRejectBlock)reject)
 {
-  NSNumber *result = @([a floatValue] * [b floatValue]);
-
-  resolve(result);
+  resolve(0);
 }
+
 
 @end

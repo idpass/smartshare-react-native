@@ -35,12 +35,12 @@ import org.json.JSONObject;
 
 import java.util.Iterator;
 
-public class BluetoothApi extends ReactContextBaseJavaModule {
+public class IdpassSmartshare extends ReactContextBaseJavaModule {
 
-    private static final String TAG = BluetoothApi.class.getName();
+    private static final String TAG = IdpassSmartshare.class.getName();
     private BluetoothSecure bluetoothSecure;
 
-    public BluetoothApi(ReactApplicationContext reactContext) {
+    public IdpassSmartshare(ReactApplicationContext reactContext) {
         super(reactContext);
         bluetoothSecure = new BluetoothSecure();
     }
@@ -48,7 +48,7 @@ public class BluetoothApi extends ReactContextBaseJavaModule {
     @NonNull
     @Override
     public String getName() {
-        return "BluetoothApi";
+        return "IdpassSmartshare";
     }
 
     private void emitEvent(String eventName, @Nullable WritableMap data) {
@@ -89,7 +89,7 @@ public class BluetoothApi extends ReactContextBaseJavaModule {
     }
 
       ///////////////////////////////////
-     // BluetoothApi.tsx Javascript APIs
+     // IdpassSmartshare.tsx Javascript APIs
     ///////////////////////////////////
 
     @ReactMethod(isBlockingSynchronousMethod = true)
