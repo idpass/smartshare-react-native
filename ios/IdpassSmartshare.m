@@ -2,6 +2,6 @@
 
 @implementation IdpassSmartshare
 
-RCT_EXPORT_MODULE();
+RCT_EXPORT_MODULE(IdpassSmartshare);
 
 @end

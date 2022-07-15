@@ -1,5 +1,6 @@
 #import <React/RCTBridgeModule.h>
+#import <React/RCTEventEmitter.h>
 
-@interface IdpassSmartshare : NSObject <RCTBridgeModule>
+@interface IdpassSmartshare : RCTEventEmitter <RCTBridgeModule>
 
 @end
