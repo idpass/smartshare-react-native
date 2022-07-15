@@ -1,17 +1,28 @@
 package com.idpasssmartsharereactnative;
 
-import androidx.annotation.NonNull;
+import android.util.Log;
 
-import com.facebook.react.bridge.Promise;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
+import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
-import com.facebook.react.module.annotations.ReactModule;
+import com.facebook.react.bridge.WritableMap;
+import com.facebook.react.modules.core.DeviceEventManagerModule;
+import com.facebook.react.bridge.Callback;
+
+import org.idpass.smartshare.connection.BluetoothSecure;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.Iterator;
 
 @ReactModule(name = SmartshareReactNativeModule.NAME)
 public class SmartshareReactNativeModule extends ReactContextBaseJavaModule {
     public static final String NAME = "SmartshareReactNative";
-    private static final String TAG = IdpassSmartshare.class.getName();
+    private static final String TAG = SmartshareReactNativeModule.class.getName();
     private BluetoothSecure bluetoothSecure;
 
     public SmartshareReactNativeModule(ReactApplicationContext reactContext) {
