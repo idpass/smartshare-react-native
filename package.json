@@ -1,6 +1,6 @@
 {
   "name": "@idpass/smartshare-react-native",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "description": "A Secure Communications Library For Sharing Credentials",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
