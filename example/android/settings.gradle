@@ -1,12 +1,9 @@
-rootProject.name = 'IdpassSmartshareExample'
-include ':react-native-permissions'
-project(':react-native-permissions').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-permissions/android')
-include ':react-native-camera'
-project(':react-native-camera').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-camera/android')
-include ':react-native-svg'
-project(':react-native-svg').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-svg/android')
+rootProject.name = 'SmartshareReactNativeExample'
 apply from: file("../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesSettingsGradle(settings)
 include ':app'
+includeBuild('../node_modules/react-native-gradle-plugin')
 
-include ':reactnativeidpasssmartshare'
-project(':reactnativeidpasssmartshare').projectDir = new File(rootProject.projectDir, '../../android')
+if (settings.hasProperty("newArchEnabled") && settings.newArchEnabled == "true") {
+    include(":ReactAndroid")
+    project(":ReactAndroid").projectDir = file('../node_modules/react-native/ReactAndroid')
+}
