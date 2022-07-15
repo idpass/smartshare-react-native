@@ -37,12 +37,15 @@ interface HandlerFunc {
   (message: string): void;
 }
 
-const eventEmitter = new NativeEventEmitter();
-
-IdpassSmartshare.handleNearbyEvents = (callback: HandlerFunc) =>
-  eventEmitter.addListener('EVENT_NEARBY', callback)
-
-IdpassSmartshare.handleLogEvents = (callback: HandlerFunc) =>
-  eventEmitter.addListener('EVENT_LOG', callback);
+if (Platform.OS === 'android') {
+  const eventEmitter = new NativeEventEmitter();
+  IdpassSmartshare.handleNearbyEvents = (callback: HandlerFunc) =>
+    eventEmitter.addListener('EVENT_NEARBY', callback);
+  IdpassSmartshare.handleLogEvents = (callback: HandlerFunc) =>
+    eventEmitter.addListener('EVENT_LOG', callback);
+} else if (Platform.OS === 'ios') {
+  IdpassSmartshare.handleNearbyEvents = () => ({ remove: () => {} });
+  IdpassSmartshare.handleLogEvents = () => ({ remove: () => {} });
+}
 
 export default IdpassSmartshare;
