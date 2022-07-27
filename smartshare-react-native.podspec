@@ -13,7 +13,9 @@ Pod::Spec.new do |s|
   s.platforms    = { :ios => "10.0" }
   s.source       = { :git => "https://github.com/idpass/smartshare-react-native.git", :tag => "#{s.version}" }
 
-  s.source_files = "ios/**/*.{h,m,mm}"
+  s.source_files = "ios/**/*.{h,m,mm,c,swift}"
+  s.requires_arc = true
 
   s.dependency "React-Core"
+  s.dependency "NearbyMessages"
 end

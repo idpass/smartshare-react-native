@@ -27,13 +27,13 @@ const LINKING_ERROR =
 const IdpassSmartshare = NativeModules.IdpassSmartshare
   ? NativeModules.IdpassSmartshare
   : new Proxy(
-    {},
-    {
-      get() {
-        throw new Error(LINKING_ERROR);
-      },
-    }
-  );
+      {},
+      {
+        get() {
+          throw new Error(LINKING_ERROR);
+        },
+      }
+    );
 
 IdpassSmartshare.noop; // to trigger iOS autolink
 
@@ -48,12 +48,11 @@ if (Platform.OS === 'android') {
   IdpassSmartshare.handleLogEvents = (callback: HandlerFunc) =>
     eventEmitter.addListener('EVENT_LOG', callback);
 } else if (Platform.OS === 'ios') {
-  IdpassSmartshare.handleNearbyEvents = () => ({ remove: () => { } });
-  IdpassSmartshare.handleLogEvents = () => ({ remove: () => { } });
+  IdpassSmartshare.handleNearbyEvents = () => ({ remove: () => {} });
+  IdpassSmartshare.handleLogEvents = () => ({ remove: () => {} });
 }
 
 export default IdpassSmartshare;
-
 
 // Google Nearby Messages
 const { GoogleNearbyMessages } = NativeModules;
@@ -62,7 +61,10 @@ const nearbyEventEmitter = new NativeEventEmitter(GoogleNearbyMessages);
 /**
  * The error descriptor used to distinguish between error events
  */
-export type ErrorType = 'BLUETOOTH_ERROR' | 'PERMISSION_ERROR' | 'MESSAGE_NO_DATA_ERROR';
+export type ErrorType =
+  | 'BLUETOOTH_ERROR'
+  | 'PERMISSION_ERROR'
+  | 'MESSAGE_NO_DATA_ERROR';
 /**
  * Used to distinguish any event emitted by the library.
  */
@@ -146,7 +148,11 @@ export async function connect(config: NearbyConfig): Promise<() => void> {
   }
   if (Platform.OS === 'ios') {
     if (apiKey == null) throw new Error('API Key is required on iOS!');
-    await GoogleNearbyMessages.connect(apiKey, discoveryModes, discoveryMediums);
+    await GoogleNearbyMessages.connect(
+      apiKey,
+      discoveryModes,
+      discoveryMediums
+    );
   } else {
     await GoogleNearbyMessages.connect(discoveryModes, discoveryMediums);
   }
@@ -162,8 +168,8 @@ export function disconnect(): void {
 
 /**
  * Subscribe to nearby message events. Use onMessageFound and onMessageLost to receive callbacks for found and lost messages. Always call unsubscribe() to stop publishing.
-  * @param onMessageFound (Optional) A function to call when a new message has been found
-  * @param onMessageLost  (Optional) A function to call when an existing message has been lost
+ * @param onMessageFound (Optional) A function to call when a new message has been found
+ * @param onMessageLost  (Optional) A function to call when an existing message has been lost
  *  @returns A function to unsubscribe the subscription and remove the event emitters if supplied.
  *  @example
  *  const unsubscribe = await subscribe(
@@ -173,10 +179,17 @@ export function disconnect(): void {
  *  // ...
  *  unsubscribe();
  */
-export async function subscribe(onMessageFound?: (message?: string) => void, onMessageLost?: (message?: string) => void): Promise<() => void> {
+export async function subscribe(
+  onMessageFound?: (message?: string) => void,
+  onMessageLost?: (message?: string) => void
+): Promise<() => void> {
   await GoogleNearbyMessages.subscribe();
-  const onMessageFoundUnsubscribe = onMessageFound ? onEvent('MESSAGE_FOUND', onMessageFound) : undefined;
-  const onMessageLostUnsubscribe = onMessageLost ? onEvent('MESSAGE_LOST', onMessageLost) : undefined;
+  const onMessageFoundUnsubscribe = onMessageFound
+    ? onEvent('MESSAGE_FOUND', onMessageFound)
+    : undefined;
+  const onMessageLostUnsubscribe = onMessageLost
+    ? onEvent('MESSAGE_LOST', onMessageLost)
+    : undefined;
   return () => {
     if (onMessageFoundUnsubscribe) onMessageFoundUnsubscribe();
     if (onMessageLostUnsubscribe) onMessageLostUnsubscribe();
@@ -240,24 +253,40 @@ export function checkBluetoothAvailability(): Promise<boolean> {
  * Subscribe to any errors.
  * @param callback The function to call when an error occurs. `kind` is the Error Type. e.g.: User turns Bluetooth off, callback gets called with ('BLUETOOTH_ERROR', "Bluetooth is powered off/unavailable!").
  */
-export function addOnErrorListener(callback: (kind: ErrorType, message?: string) => void): () => void {
+export function addOnErrorListener(
+  callback: (kind: ErrorType, message?: string) => void
+): () => void {
   const listeners = [
     onErrorEvent('BLUETOOTH_ERROR', (m) => callback('BLUETOOTH_ERROR', m)),
     onErrorEvent('PERMISSION_ERROR', (m) => callback('PERMISSION_ERROR', m)),
-    onErrorEvent('MESSAGE_NO_DATA_ERROR', (m) => callback('MESSAGE_NO_DATA_ERROR', m)),
+    onErrorEvent('MESSAGE_NO_DATA_ERROR', (m) =>
+      callback('MESSAGE_NO_DATA_ERROR', m)
+    ),
   ];
   return () => {
-    listeners.map(l => l());
+    listeners.map((l) => l());
   };
 }
 
-function onEvent(event: EventType, callback: (message?: string) => void): () => void {
-  const subscription = nearbyEventEmitter.addListener(event, (data: BridgeMessageEvent) => callback(data.message));
+function onEvent(
+  event: EventType,
+  callback: (message?: string) => void
+): () => void {
+  const subscription = nearbyEventEmitter.addListener(
+    event,
+    (data: BridgeMessageEvent) => callback(data.message)
+  );
   return () => subscription.remove();
 }
 
-function onErrorEvent(event: ErrorType, callback: (message?: string) => void): () => void {
-  const subscription = nearbyEventEmitter.addListener(event, (data: BridgeErrorEvent) => callback(data.message));
+function onErrorEvent(
+  event: ErrorType,
+  callback: (message?: string) => void
+): () => void {
+  const subscription = nearbyEventEmitter.addListener(
+    event,
+    (data: BridgeErrorEvent) => callback(data.message)
+  );
   return () => subscription.remove();
 }
 
@@ -265,18 +294,18 @@ function removeAllListeners(event: EventType): void {
   nearbyEventEmitter.removeAllListeners(event);
 }
 
-
-
-
-
-
-
-
 // MARK: React Hooks
 /**
  * The current status of the Google Nearby API (used in hooks)
  */
-export type NearbyStatus = 'disconnected' | 'connecting' | 'published' | 'subscribed' | 'error' | 'denied' | 'unavailable';
+export type NearbyStatus =
+  | 'disconnected'
+  | 'connecting'
+  | 'published'
+  | 'subscribed'
+  | 'error'
+  | 'denied'
+  | 'unavailable';
 /**
  * The state of a current Subscription. (used in hooks)
  */
@@ -306,7 +335,10 @@ export interface SearchState {
  *   // ...
  * }
  */
-export function useNearbyPublication(config: NearbyConfig, message: string): NearbyStatus {
+export function useNearbyPublication(
+  config: NearbyConfig,
+  message: string
+): NearbyStatus {
   const [nearbyStatus, setNearbyStatus] = useState<NearbyStatus>('connecting');
 
   useEffect(() => {
@@ -342,7 +374,7 @@ export function useNearbyPublication(config: NearbyConfig, message: string): Nea
       disconnect();
       setNearbyStatus('disconnected');
     };
-  }, [setNearbyStatus, config, message, setNearbyStatus]);
+  }, [setNearbyStatus, config, message]);
 
   return nearbyStatus;
 }
@@ -353,7 +385,9 @@ interface ReducerPayload {
 }
 
 function reducer(messages: string[], payload: ReducerPayload): string[] {
-  const removeIndices = payload.removeMessages?.map((removeMessage) => messages.findIndex((message) => removeMessage === message));
+  const removeIndices = payload.removeMessages?.map((removeMessage) =>
+    messages.findIndex((message) => removeMessage === message)
+  );
   removeIndices?.forEach((i) => {
     if (i > -1) messages.splice(i, 1);
   });
@@ -385,12 +419,18 @@ export function useNearbySubscription(config: NearbyConfig): SubscriptionState {
   const [nearbyMessages, dispatch] = useReducer(reducer, []);
   const [nearbyStatus, setNearbyStatus] = useState<NearbyStatus>('connecting');
 
-  const messageFound = useCallback((message) => {
-    dispatch({ addMessages: [message] });
-  }, [dispatch]);
-  const messageLost = useCallback((message) => {
-    dispatch({ removeMessages: [message] });
-  }, [dispatch]);
+  const messageFound = useCallback(
+    (message) => {
+      dispatch({ addMessages: [message] });
+    },
+    [dispatch]
+  );
+  const messageLost = useCallback(
+    (message) => {
+      dispatch({ removeMessages: [message] });
+    },
+    [dispatch]
+  );
 
   useEffect(() => {
     const start = async () => {
@@ -446,16 +486,25 @@ export function useNearbySubscription(config: NearbyConfig): SubscriptionState {
  *   );
  * }
  */
-export function useNearbySearch(config: NearbyConfig, searchFor: string): SearchState {
+export function useNearbySearch(
+  config: NearbyConfig,
+  searchFor: string
+): SearchState {
   const [isNearby, setIsNearby] = useState(false);
   const [nearbyStatus, setNearbyStatus] = useState<NearbyStatus>('connecting');
 
-  const messageFound = useCallback((message) => {
-    if (message === searchFor) setIsNearby(true);
-  }, [searchFor, setIsNearby]);
-  const messageLost = useCallback((message) => {
-    if (message === searchFor) setIsNearby(false);
-  }, [searchFor, setIsNearby]);
+  const messageFound = useCallback(
+    (message) => {
+      if (message === searchFor) setIsNearby(true);
+    },
+    [searchFor, setIsNearby]
+  );
+  const messageLost = useCallback(
+    (message) => {
+      if (message === searchFor) setIsNearby(false);
+    },
+    [searchFor, setIsNearby]
+  );
 
   useEffect(() => {
     const start = async () => {
@@ -499,6 +548,8 @@ export function useNearbySearch(config: NearbyConfig, searchFor: string): Search
  * Add an error listener which automatically disposes when the component unmounts.
  * @param callback The function to call when an error occurs.
  */
-export function useNearbyErrorCallback(callback: (kind: ErrorType, message?: string) => void) {
-  useEffect(() => addOnErrorListener(callback), [callback])
+export function useNearbyErrorCallback(
+  callback: (kind: ErrorType, message?: string) => void
+) {
+  useEffect(() => addOnErrorListener(callback), [callback]);
 }
