@@ -5,7 +5,7 @@
 // (powered by Fernflower decompiler)
 //
 
-package com.reactnativeidpasssmartshare;
+package com.google.android.gms.nearby.messages;
 
 import com.google.android.gms.common.internal.Preconditions;
 import com.google.android.gms.common.internal.safeparcel.SafeParcelable.Class;
