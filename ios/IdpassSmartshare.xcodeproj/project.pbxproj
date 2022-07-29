@@ -20,6 +20,9 @@
 
 /* Begin PBXFileReference section */
 		134814201AA4EA6300B7C361 /* libIdpassSmartshare.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libIdpassSmartshare.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		AE97036A288FF52C00CD5C9C /* GoogleNearbyMessagesBridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoogleNearbyMessagesBridge.m; sourceTree = "<group>"; };
+		AE97036B288FF52C00CD5C9C /* GoogleNearbyMessagesBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoogleNearbyMessagesBridge.h; sourceTree = "<group>"; };
+		AE97036C288FF52C00CD5C9C /* GoogleNearbyMessages.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoogleNearbyMessages.swift; sourceTree = "<group>"; };
 		B3E7B5881CC2AC0600A0062D /* IdpassSmartshare.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IdpassSmartshare.h; sourceTree = "<group>"; };
 		B3E7B5891CC2AC0600A0062D /* IdpassSmartshare.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IdpassSmartshare.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -46,6 +49,9 @@
 		58B511D21A9E6C8500147676 = {
 			isa = PBXGroup;
 			children = (
+				AE97036C288FF52C00CD5C9C /* GoogleNearbyMessages.swift */,
+				AE97036B288FF52C00CD5C9C /* GoogleNearbyMessagesBridge.h */,
+				AE97036A288FF52C00CD5C9C /* GoogleNearbyMessagesBridge.m */,
 				B3E7B5881CC2AC0600A0062D /* IdpassSmartshare.h */,
 				B3E7B5891CC2AC0600A0062D /* IdpassSmartshare.m */,
 				134814211AA4EA7D00B7C361 /* Products */,
@@ -83,6 +89,7 @@
 				TargetAttributes = {
 					58B511DA1A9E6C8500147676 = {
 						CreatedOnToolsVersion = 6.1.1;
+						LastSwiftMigration = 1340;
 					};
 				};
 			};
@@ -219,32 +226,41 @@
 		58B511F01A9E6C8500147676 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"$(SRCROOT)/../../../React/**",
 					"$(SRCROOT)/../../react-native/React/**",
 				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = IdpassSmartshare;
 				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = GoogleNearbyMessagesBridge.h;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
 		58B511F11A9E6C8500147676 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"$(SRCROOT)/../../../React/**",
 					"$(SRCROOT)/../../react-native/React/**",
 				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = IdpassSmartshare;
 				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = GoogleNearbyMessagesBridge.h;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
